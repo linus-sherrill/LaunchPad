@@ -209,7 +209,6 @@ void setup()
   // RelayTest();
 }
 
-
 // --------------------------------------------------------------------------
 enum { // States
   ST_IDLE,
@@ -309,6 +308,7 @@ void loop()
 
     case ST_READY: // -------------------------------------------
       {
+        // Device has been armed
         // Wait for button to be pushed.
         if ( LaunchButtonActive() )
         {
@@ -354,7 +354,7 @@ void loop()
           digitalWrite(kFuelPort, SIGNAL_OFF );
           NewState( ST_FIRE );
           LightTower.Red();
-          
+
           // Add delay from when air is turned off and trigger in pulled
           fueling_timer = millis() + 2000; // temp
         }
@@ -383,6 +383,9 @@ void loop()
           digitalWrite( kLaunchPort, SIGNAL_OFF );
           NewState( ST_POST_FIRING );
           firing_timer = millis() + FIRE_RECYCLE; // reset time
+
+          // Set yellow light
+          LightTower.Yellow();
         }
       }
       break;
